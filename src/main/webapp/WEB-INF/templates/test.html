@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>SpringThyme Seed Starter Manager</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" media="all" href="../../css/main.css" th:href="@{/css/main.css}" />
+	</head>
+	<body>
+		<img src="../../resources/images/jt_net.png" th:attr="src=@{resources/images/jt_net.png}" />
+		<h2 th:text="${title}">Title</h2>
+		<p th:text="'The time on the server is ' + ${serverTime}">The time on the server is 'bogusTime'.</p>
+		
+		<hr />
+		<div th:include="footer :: copy"></div>
+	</body>
+</html>

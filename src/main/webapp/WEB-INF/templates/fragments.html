@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<body>
+	<div id="header" th:fragment="header">
+		<img src="../../resources/images/einflighc.jpg" height="50px" width="100px" th:attr="src=@{resources/images/einflighc.jpg}" />
+		<span class="title">EWIC Portfolio Monitor</span>
+	</div>
+	<div id="toolbar" th:fragment="menubar">
+		<div>
+		<!-- Start css3menu.com BODY section -->
+		<ul id="css3menu1" class="topmenu">
+			<li class="topmenu"><a href="/PortfolioMonitor/" style="height:16px;line-height:16px;">Home</a></li>
+			<li sec:authorize="hasRole('ROLE_SYS_ADMIN') or hasRole('ROLE_CLUB_ADMIN') or hasRole('ROLE_USER')" class="topmenu"><a href="#" th:href="@{/monitorPortfolio.html}" style="height:16px;line-height:16px;">Monitor Portfolio</a></li>
+			<li sec:authorize="hasRole('ROLE_SYS_ADMIN') or hasRole('ROLE_CLUB_ADMIN') or hasRole('ROLE_USER')" class="topmenu"><a href="#" th:href="@{/maintainPortfolio.html}" style="height:16px;line-height:16px;">Maintain Portfolio</a></li>
+			<li sec:authorize="hasRole('ROLE_SYS_ADMIN') or hasRole('ROLE_CLUB_ADMIN')" class="toproot"><a href="#" style="height:16px;line-height:16px;"><span>Club Administration</span></a>
+			<ul>
+				<li><a href="#" th:href="@{/adminClubMembers}">Club Members</a></li>
+				<li><a href="#" th:href="@{/adminClubPortfolios}">Club Portfolios</a></li>
+			</ul></li>
+			<li sec:authorize="hasRole('ROLE_SYS_ADMIN')" class="toproot"><a href="#" style="height:16px;line-height:16px;"><span>System Administration</span></a>
+			<ul>
+				<li><a href="/PortfolioMonitor/adminSysUser.html">System User</a></li>
+				<li><a href="/PortfolioMonitor/adminClub.html">Investment Club</a></li>
+			</ul></li>
+			<li sec:authorize="hasRole('ROLE_SYS_ADMIN') or hasRole('ROLE_CLUB_ADMIN') or hasRole('ROLE_USER')" class="topmenu"><a href="/PortfolioMonitor/j_spring_security_logout" style="height:16px;line-height:16px;">Log Out</a></li>
+		</ul><p class="_css3m"><a href="http://css3menu.com/">Horizontal CSS3 Menus</a> by Css3Menu.com</p>
+		<!-- End css3menu.com BODY section -->
+		</div>
+	</div>
+	<div id="menu" th:fragment="leftsidebar" th:with="currentUser=${#httpServletRequest.userPrincipal?.name}">
+		<br />
+		<span class="menuHeading">Home Menu</span><br />
+		<span sec:authorize="hasRole('ROLE_ANONYMOUS')" class="menuSubHeading"><a href="/PortfolioMonitor/login.html">Log In</a></span><br />
+		<span sec:authorize="hasRole('ROLE_SYS_ADMIN') or hasRole('ROLE_CLUB_ADMIN') or hasRole('ROLE_USER')" class="menuSubHeading"><a href="/PortfolioMonitor/sellPoints.html">Sell Points</a></span><br /><br />
+		<span sec:authorize="hasRole('ROLE_SYS_ADMIN') or hasRole('ROLE_CLUB_ADMIN') or hasRole('ROLE_USER')" class="menuSubHeading"><a href="/PortfolioMonitor/changePassword.html">Change Password</a></span><br />
+		<br />
+	</div>
+	<div id="menu" th:fragment="sysuseradminmenu" th:with="currentUser=${#httpServletRequest.userPrincipal?.name}">
+		<br />
+		<span class="menuHeading">SysUser Admin</span><br />
+		<span sec:authorize="hasRole('ROLE_SYS_ADMIN')" class="menuSubHeading"><a href="/PortfolioMonitor/addSysUser.html">Add System User</a></span><br />
+		<br />
+	</div>
+	<div id="menu" th:fragment="clubadminmenu" th:with="currentUser=${#httpServletRequest.userPrincipal?.name}">
+		<br />
+		<span class="menuHeading">Club Admin</span><br />
+		<span sec:authorize="hasRole('ROLE_SYS_ADMIN')" class="menuSubHeading"><a href="/PortfolioMonitor/addClub.html">Add Club</a></span><br />
+		<br />
+	</div>
+	<div id="menu" th:fragment="clubmembermenu" th:with="currentUser=${#httpServletRequest.userPrincipal?.name}">
+		<br />
+		<span class="menuHeading">Clubs</span><br />
+		<span sec:authorize="hasRole('ROLE_SYS_ADMIN') or hasRole('ROLE_CLUB_ADMIN')" class="menuSubHeading">
+			<span th:each="club : ${allClubs}">
+				<span class="menuItem"><a href="#" th:href="@{/adminClubMembers(clubId=${club.clubId})}" th:text="${club.clubName}">Club</a></span><br />
+			</span>
+		</span>
+		<br />
+	</div>
+	<div id="menu" th:fragment="clubportfoliomenu" th:with="currentUser=${#httpServletRequest.userPrincipal?.name}">
+		<br />
+		<span class="menuHeading">Clubs</span><br />
+		<span sec:authorize="hasRole('ROLE_SYS_ADMIN') or hasRole('ROLE_CLUB_ADMIN')" class="menuSubHeading">
+			<span th:each="club : ${allClubs}">
+				<span class="menuItem"><a href="#" th:href="@{/adminClubPortfolios(clubId=${club.clubId})}" th:text="${club.clubName}">Club</a></span><br />
+			</span>
+		</span>
+		<br />
+	</div>
+	<div id="menu" th:fragment="portfoliomenu" th:with="currentUser=${#httpServletRequest.userPrincipal?.name}">
+		<br />
+		<span class="menuHeading">Portfolio Positions</span><br /><br />
+		<span class="menuSubHeading">Your Portfolios:</span><br />
+		<span th:each="portfolioPositions : ${monitorMenu.personalPortfolioList}">
+			<span class="menuItemHeading" th:text="${portfolioPositions.portfolio.portfolioName}">Portfolio Name</span><br />
+			<span th:each="position : ${portfolioPositions.positions}">
+				<span class="menuItem"><a href="#" th:href="@{/monitorPortfolio.html(positionId=${position.positionId})}" th:text="${position.ticker} + ' - ' + ${position.purchaseDate}">TICKER - PURCH.DATE</a></span><br />
+			</span>
+		</span><br /><br />
+		
+		<span class="menuSubHeading">Club Portfolios:</span><br />
+		<span th:each="club : ${monitorMenu.clubPortfoliosPositions}">
+			<span class="menuItemHeading" th:text="${club.clubName}">Club Name</span><br />
+			<span th:each="portfolioPositions : ${club.portfolioPositions}">
+				<span class="menuItemHeading2" th:text="${portfolioPositions.portfolio.portfolioName}">Portfolio Name</span><br />
+				<span th:each="position : ${portfolioPositions.positions}">
+					<span class="menuItem2"><a href="#" th:href="@{/monitorPortfolio.html(positionId=${position.positionId})}" th:text="${position.ticker} + ' - ' + ${position.purchaseDate}">TICKER - PURCH.DATE</a></span><br />
+				</span>
+			</span>
+		</span><br /><br />
+	</div>
+	<div id="menu" th:fragment="maintainportfoliomenu" th:with="currentUser=${#httpServletRequest.userPrincipal?.name}">
+		<br />
+		<span class="menuHeading">Select Portfolio</span><br /><br />
+		<span class="menuSubHeading">Your Portfolios:</span><br />
+		<span th:each="portfolioPositions : ${maintainMenu.personalPortfolioList}">
+			<span class="menuItem"><a href="#" th:href="@{/maintainPortfolio.html(portfolioId=${portfolioPositions.portfolio.portfolioId})}" th:text="${portfolioPositions.portfolio.portfolioName}">Portfolio Name</a></span><br />
+		</span><br /><br />
+		
+		<span class="menuSubHeading"><a href="/PortfolioMonitor/addPersonalPortfolio.html">Add Pers. Portfolio</a></span><br /><br />
+		
+		<span class="menuSubHeading">Club Portfolios:</span><br />
+		<span th:each="club : ${maintainMenu.clubPortfoliosPositions}">
+			<span class="menuItemHeading" th:text="${club.clubName}">Club Name</span><br />
+			<span th:each="portfolioPositions : ${club.portfolioPositions}">
+				<span class="menuItem"><a href="#" th:href="@{/maintainPortfolio.html(portfolioId=${portfolioPositions.portfolio.portfolioId})}" th:text="${portfolioPositions.portfolio.portfolioName}">Portfolio Name</a></span><br />
+			</span>
+		</span><br /><br />
+	</div>
+	<!-- 
+	<div th:fragment="portfolioGraph" th:with="currentUser=${#httpServletRequest.userPrincipal?.name}">
+		<img href="/PortfolioMonitor/monitorPortfolioGraph.html" th:href="@{/monitorPortfolioGraph.html(positionId=${position.positionId})}" alt="Graph" />
+		<br />
+	</div>
+	 -->
+	<div id="footer" th:fragment="footer">
+		<hr />
+		&copy; 2014 Cornerstone Consulting, LLC
+	</div>
+</body>
+</html>

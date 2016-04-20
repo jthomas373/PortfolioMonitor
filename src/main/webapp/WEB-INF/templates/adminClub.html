@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>EWIC Portfolio Monitor</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" media="all" href="../../resources/styles/main.css" th:href="@{resources/styles/main.css}" />
+		<!-- Start css3menu.com HEAD section -->
+		<link rel="stylesheet" href="/resources/styles/style.css" th:href="@{resources/styles/style.css}" type="text/css" />
+		<style type="text/css">._css3m{display:none}</style>
+		<!-- End css3menu.com HEAD section -->
+	</head>
+	<body>
+		<div id="header" th:include="fragments :: header"></div>
+		<div id="toolbar" th:include="fragments :: menubar"></div>
+		<div id="menu" th:include="fragments :: clubadminmenu"></div>
+		<br />
+		<span class="bodyHeading">Investment Club Administration</span><br />
+		
+		<h3>Investment Club Search Criteria</h3>
+		(Note: The club name, city, and state search parameters will accept the "%" character
+		as a wild card.)<br /><br />
+		
+		<form action="#" th:action="@{/adminClub.html}" th:object="${clubSearch}" method="post">
+			<table>
+				<tr>
+					<td>Club Name</td>
+					<td><input type="text" th:field="*{clubName}" /></td>
+				</tr>
+				<tr>
+					<td>City</td>
+					<td><input type="text" th:field="*{city}" /></td>
+				</tr>
+				<tr>
+					<td>State</td>
+					<td><input type="text" th:field="*{state}" /></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center"><input type="submit" value="Search" /></td>
+				</tr>
+			</table>
+		</form>
+		
+		<div th:unless="${#lists.isEmpty(clubList)}">
+			<br />
+			<h3>Search Results</h3>
+			<table>
+				<tr>
+					<th width="120px">Club Name</th>
+					<th width="300px">Description</th>
+					<th width="200px">Notes</th>
+					<th width="80px">City</th>
+					<th width="80px">State</th>
+					<th width="60px">Country</th>
+					<th width="150px">Action</th>
+				</tr>
+				<tr th:each="club : ${clubList}">
+					<td align="center" th:text="${{club.clubName}}">Club Name</td>
+					<td align="center" th:text="${{club.description}}">Description</td>
+					<td align="center" th:text="${{club.notes}}">Notes</td>
+					<td align="center" th:text="${{club.city}}">City</td>
+					<td align="center" th:text="${{club.state}}">State</td>
+					<td align="center" th:text="${{club.country}}">Country</td>
+					<td align="center">
+						<a href="#" th:href="@{/editClub.html(clubId=${club.clubId})}">Edit</a>
+						&nbsp;&nbsp;&nbsp;
+						<a href="#" th:href="@{/deleteClub.html(clubId=${club.clubId})}">Delete</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id="footer" th:include="fragments :: footer"></div>
+	</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>EWIC Portfolio Monitor</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" media="all" href="../../resources/styles/main.css" th:href="@{resources/styles/main.css}" />
+		<!-- Start css3menu.com HEAD section -->
+		<link rel="stylesheet" href="/resources/styles/style.css" th:href="@{resources/styles/style.css}" type="text/css" />
+		<style type="text/css">._css3m{display:none}</style>
+		<!-- End css3menu.com HEAD section -->
+	</head>
+	<body>
+		<div id="header" th:include="fragments :: header"></div>
+		<div id="toolbar" th:include="fragments :: menubar"></div>
+		<div id="menu" th:include="fragments :: sysuseradminmenu"></div>
+		<br />
+		<span class="bodyHeading">System User Administration</span><br />
+		
+		<h3>System User Search Criteria</h3>
+		(Note: The Username and Last Name search parameters will accept the "%" character
+		as a wild card.)<br /><br />
+		
+		<form action="#" th:action="@{/adminSysUser.html}" th:object="${sysUserSearch}" method="post">
+			<table>
+				<tr>
+					<td>Username</td>
+					<td><input type="text" th:field="*{username}" /></td>
+				</tr>
+				<tr>
+					<td>Last Name</td>
+					<td><input type="text" th:field="*{lastName}" /></td>
+				</tr>
+				<tr>
+					<td>Active?</td>
+					<td><input type="checkbox" th:field="*{active}" /></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center"><input type="submit" value="Search" /></td>
+				</tr>
+			</table>
+		</form>
+		
+		<div th:unless="${#lists.isEmpty(sysUserList)}">
+			<br />
+			<h3>Search Results</h3>
+			<table>
+				<tr>
+					<th width="60px"></th>
+					<th width="60px"></th>
+					<th width="80px">Last</th>
+					<th width="80px">First</th>
+					<th width="60px">Middle</th>
+					<th width="250px"></th>
+				</tr>
+				<tr>
+					<th>Username</th>
+					<th>Active</th>
+					<th>Name</th>
+					<th>Name</th>
+					<th>Initial</th>
+					<th>Action</th>
+				</tr>
+				<tr th:each="su : ${sysUserList}">
+					<td align="center" th:text="${{su.username}}">User Name</td>
+					<td align="center" th:text="${{su.active}}">User Name</td>
+					<td align="center" th:text="${{su.lastName}}">User Name</td>
+					<td align="center" th:text="${{su.firstName}}">User Name</td>
+					<td align="center" th:text="${{su.middleInit}}">User Name</td>
+					<td align="center">
+						<a href="#" th:href="@{/editSysUser.html(sysUserId=${su.sysUserId})}">Edit</a>
+						&nbsp;&nbsp;&nbsp;
+						<a href="#" th:href="@{/deleteSysUser.html(sysUserId=${su.sysUserId})}">Delete</a>
+						&nbsp;&nbsp;&nbsp;
+						<a href="#" th:href="@{/editSysUserPwd.html(sysUserId=${su.sysUserId})}">Password</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>

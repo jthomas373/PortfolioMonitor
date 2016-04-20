@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>EWIC Portfolio Monitor</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" media="all" href="../../resources/styles/main.css" th:href="@{resources/styles/main.css}" />
+		<!-- Start css3menu.com HEAD section -->
+		<link rel="stylesheet" href="/resources/styles/style.css" th:href="@{resources/styles/style.css}" type="text/css" />
+		<style type="text/css">._css3m{display:none}</style>
+		<!-- End css3menu.com HEAD section -->
+	</head>
+	<body>
+		<div id="header" th:include="fragments :: header"></div>
+		<div id="toolbar" th:include="fragments :: menubar"></div>
+		<div id="menu" th:include="fragments :: clubmembermenu"></div>
+		<br />
+		<span class="bodyHeading">Club Membership Administration</span><br />
+		<span th:text="'(Current Club:  ' + ${club.clubName} + ')'">Current Club Name</span><br />
+		
+		<div th:unless="${#lists.isEmpty(clubMemberList)}">
+			<br />
+			<h3>Club Membership</h3>
+			<table>
+				<tr>
+					<th width="60px"></th>
+					<th width="60px"></th>
+					<th width="80px">Last</th>
+					<th width="80px">First</th>
+					<th width="60px">Middle</th>
+					<th width="60px"></th>
+					<th width="350px"></th>
+				</tr>
+				<tr>
+					<th>Username</th>
+					<th>Active?</th>
+					<th>Name</th>
+					<th>Name</th>
+					<th>Initial</th>
+					<th>Club Admin?</th>
+					<th>Action</th>
+				</tr>
+				<tr th:each="cm : ${clubMemberList}">
+					<td align="center" th:text="${{cm.sysUser.username}}">User Name</td>
+					<td align="center" th:text="${{cm.sysUser.active}}">Active?</td>
+					<td align="center" th:text="${{cm.sysUser.lastName}}">Last Name</td>
+					<td align="center" th:text="${{cm.sysUser.firstName}}">First Sname</td>
+					<td align="center" th:text="${{cm.sysUser.middleInit}}">Middle Initial</td>
+					<td align="center" th:text="${{cm.isAdmin}}">Club Admin?</td>
+					<td align="center">
+						<a href="#" th:href="@{/makeClubAdmin.html(sysUserId=${cm.sysUser.sysUserId}, clubId=${cm.clubId})}">Make Admin</a>
+						&nbsp;&nbsp;&nbsp;
+						<a href="#" th:href="@{/revokeClubAdmin.html(sysUserId=${cm.sysUser.sysUserId}, clubId=${cm.clubId})}">Revoke Admin</a>
+						&nbsp;&nbsp;&nbsp;
+						<a href="#" th:href="@{/removeClubMember.html(sysUserId=${cm.sysUser.sysUserId}, clubId=${cm.clubId})}">Remove</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<br />
+		<br />
+		<h3>New Club Member Search Criteria</h3>
+		(Note: The Username and Last Name search parameters will accept the "%" character
+		as a wild card.)<br /><br />
+		
+		<form action="#" th:action="@{/adminClubMembers}" th:object="${sysUserSearch}" method="post">
+			<table>
+				<tr>
+					<td>Username</td>
+					<td><input type="text" th:field="*{username}" /></td>
+				</tr>
+				<tr>
+					<td>Last Name</td>
+					<td><input type="text" th:field="*{lastName}" /></td>
+				</tr>
+				<tr>
+					<td>Active?</td>
+					<td><input type="checkbox" th:field="*{active}" /></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center"><input type="submit" value="Search" /></td>
+				</tr>
+			</table>
+		</form>
+		
+		<div th:unless="${#lists.isEmpty(newClubMemberList)}">
+			<br />
+			<h3>Search Results</h3>
+			<table>
+				<tr>
+					<th width="60px"></th>
+					<th width="60px"></th>
+					<th width="80px">Last</th>
+					<th width="80px">First</th>
+					<th width="60px">Middle</th>
+					<th width="250px"></th>
+				</tr>
+				<tr>
+					<th>Username</th>
+					<th>Active</th>
+					<th>Name</th>
+					<th>Name</th>
+					<th>Initial</th>
+					<th>Action</th>
+				</tr>
+				<tr th:each="cml : ${newClubMemberList}">
+					<td align="center" th:text="${{cml.sysUser.username}}">User Name</td>
+					<td align="center" th:text="${{cml.sysUser.active}}">User Name</td>
+					<td align="center" th:text="${{cml.sysUser.lastName}}">User Name</td>
+					<td align="center" th:text="${{cml.sysUser.firstName}}">User Name</td>
+					<td align="center" th:text="${{cml.sysUser.middleInit}}">User Name</td>
+					<td align="center">
+						<a href="#" th:href="@{/addClubMember.html(clubId=${clubId}, sysUserId=${cml.sysUser.sysUserId})}">Add New Club Member</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>

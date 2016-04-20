@@ -1,0 +1,132 @@
+#header {
+	height: 50px;
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+#footer {
+		clear: both;
+		font-style: italic;
+		text-align: center;
+		padding-top: 50px;
+}
+
+#toolbar {
+		padding: 0;
+		margin: 0;
+}
+
+#toolbar ul {
+		padding: 0;
+		margin: 0;
+}
+
+#toolbar li {
+		position: relative;
+		float: left;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+}
+
+#toolbar li a {
+		/*
+		width: 100px;
+		height: 30px;
+		line-height: 30px;
+						*/
+		display: block;
+		text-decoration: none;
+		text-align: center;
+		background-color: black;
+		color: white;
+		padding: 0px 10px 0px 10px;
+		border: 1px solid white;
+}
+
+#toolbar li a:hover {
+		background-color: red;
+}
+
+#toolbar ul ul {
+		position: absolute;
+		visibility: hidden;
+}
+
+#toolbar ul li:hover ul {
+		visibility: visible;
+}
+
+		
+
+#menu {
+	float: left;
+	height: 1200px;
+	width: 175px;
+}
+
+#shortmenu {
+	float: left;
+	height: 600px;
+	width: 175px;
+}
+
+#body {
+
+}
+
+.title {
+	font-size: 2.5em;
+	padding-left: 20px;
+}
+
+.menuHeading {
+	font-size: 1.0em;
+	font-weight: bold;
+}
+
+.menuSubHeading {
+	font-size: 0.8em;
+	font-weight: bold;
+}
+
+.menuItemHeading {
+	font-size: 0.8em;
+	font-weight: bold;
+	padding-left: 10px;
+}
+
+.menuItemHeading2 {
+	font-size: 0.8em;
+	font-weight: bold;
+	padding-left: 20px;
+}
+
+.menuItem {
+	font-size: 0.7em;
+	font-weight: bold;
+	padding-left: 20px;
+}
+
+.menuItem2 {
+	font-size: 0.7em;
+	font-weight: bold;
+	padding-left: 30px;
+}
+
+.bodyHeading {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.bodyText {
+	font-size: 1.0em;
+	font-weight: normal;
+}
+
+.bodyBullets  {
+	font-size: 1.0em;
+	font-weight: normal;
+	padding-left: 150px;
+}
+

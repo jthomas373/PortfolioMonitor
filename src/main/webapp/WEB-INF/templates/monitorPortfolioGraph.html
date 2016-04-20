@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		th:include="templates/monitorPortfolio :: page">
+	<head>
+		<title>EWIC Portfolio Monitor</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" media="all" href="../../resources/styles/main.css" th:href="@{resources/styles/main.css}" />
+		<!-- Start css3menu.com HEAD section -->
+		<link rel="stylesheet" href="/resources/styles/style.css" th:href="@{resources/styles/style.css}" type="text/css" />
+		<style type="text/css">._css3m{display:none}</style>
+		<!-- End css3menu.com HEAD section -->
+	</head>
+	<body>
+		<img src="#" th:src="@{/graph/chart.html(positionId=${position.positionId})}" alt="Graph" />
+	</body>
+</html>

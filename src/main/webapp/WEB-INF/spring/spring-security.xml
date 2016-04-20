@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<sec:global-method-security secured-annotations="enabled" />
+	
+	<sec:http auto-config="true" use-expressions="true">
+		<sec:session-management	session-fixation-protection="newSession" />
+		<sec:form-login login-page="/login.html" authentication-failure-url="/login-error.html" />
+		<sec:logout />
+		<sec:access-denied-handler error-page="/denied.html"/>
+		<sec:intercept-url pattern="/sellPoints.html" access="hasAnyRole('ROLE_USER', 'ROLE_CLUB_ADMIN', 'ROLE_SYS_ADMIN')" />
+		<sec:intercept-url pattern="/changePassword.html" access="hasAnyRole('ROLE_USER', 'ROLE_CLUB_ADMIN', 'ROLE_SYS_ADMIN')" />
+		<sec:intercept-url pattern="/monitorPortfolio.html" access="hasAnyRole('ROLE_USER', 'ROLE_CLUB_ADMIN', 'ROLE_SYS_ADMIN')" />
+		<sec:intercept-url pattern="/maintainPortfolio.html" access="hasAnyRole('ROLE_USER', 'ROLE_CLUB_ADMIN', 'ROLE_SYS_ADMIN')" />
+		<sec:intercept-url pattern="/addPosition.html" access="hasAnyRole('ROLE_USER', 'ROLE_CLUB_ADMIN', 'ROLE_SYS_ADMIN')" />
+		<sec:intercept-url pattern="/editPosition.html" access="hasAnyRole('ROLE_USER', 'ROLE_CLUB_ADMIN', 'ROLE_SYS_ADMIN')" />
+		<sec:intercept-url pattern="/deletePosition" access="hasAnyRole('ROLE_USER', 'ROLE_CLUB_ADMIN', 'ROLE_SYS_ADMIN')" />
+		<sec:intercept-url pattern="/adminSysUser.html" access="hasRole('ROLE_SYS_ADMIN')" />
+		<sec:intercept-url pattern="/editSysUser.html" access="hasRole('ROLE_SYS_ADMIN')" />
+		<sec:intercept-url pattern="/editSysUserPwd.html" access="hasRole('ROLE_SYS_ADMIN')" />
+		<sec:intercept-url pattern="/addSysUser.html" access="hasRole('ROLE_SYS_ADMIN')" />
+		<sec:intercept-url pattern="/deleteSysUser.html" access="hasRole('ROLE_SYS_ADMIN')" />
+		<sec:intercept-url pattern="/adminClub.html" access="hasRole('ROLE_SYS_ADMIN')" />
+		<sec:intercept-url pattern="/editSClub.html" access="hasRole('ROLE_SYS_ADMIN')" />
+		<sec:intercept-url pattern="/addClub.html" access="hasRole('ROLE_SYS_ADMIN')" />
+		<sec:intercept-url pattern="/deleteClub.html" access="hasRole('ROLE_SYS_ADMIN')" />
+		<sec:intercept-url pattern="/*" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER', 'ROLE_CLUB_ADMIN', 'ROLE_SYS_ADMIN')" />
+	</sec:http>
+
+	<sec:authentication-manager>
+		<sec:authentication-provider>
+			<sec:password-encoder hash="md5">
+				<sec:salt-source user-property="username" />
+			</sec:password-encoder>
+			
+			<sec:jdbc-user-service 
+				data-source-ref="dataSource"
+				users-by-username-query='SELECT username, password, active as "enabled" FROM sysuser WHERE username = ?'
+				authorities-by-username-query='SELECT s.username, a.authority_name as "authority" FROM authority a, sysuser s, sysuser_authority sa WHERE s.sysuser_id = sa.sysuser_id AND a.authority_id = sa.authority_id AND s.username = ?' />
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+
+</beans>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>EWIC Portfolio Monitor</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" media="all" href="../../resources/styles/main.css" th:href="@{resources/styles/main.css}" />
+		<!-- Start css3menu.com HEAD section -->
+		<link rel="stylesheet" href="/resources/styles/style.css" th:href="@{resources/styles/style.css}" type="text/css" />
+		<style type="text/css">._css3m{display:none}</style>
+		<!-- End css3menu.com HEAD section -->
+	</head>
+	<body>
+		<div id="header" th:include="fragments :: header"></div>
+		<div id="toolbar" th:include="fragments :: menubar"></div>
+		<div id="shortmenu" th:include="fragments :: maintainportfoliomenu"></div>
+		 
+		<div th:if="${noPortfolios}">
+			<h3 style="color: red">Your have no portfolios to maintain.  Add a personal portfolio?</h3>
+		</div>
+		<div th:if="${noPortfolios} == false and ${noPositions}">
+			<span th:text="'(Current Portfolio:  ' + ${selectedPortfolio.portfolioName} + ')'">Current Portfolio Name</span>
+			<span th:if="${isPersonalPortfolio}">
+				&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" th:href="@{/editPersonalPortfolio.html(portfolioId=${selectedPortfolio.portfolioId})}">Edit</a>&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" th:href="@{/deletePersonalPortfolio.html(portfolioId=${selectedPortfolio.portfolioId})}">Delete</a><br /><br />
+			</span>
+			<h3 style="color: red">Your portfolio is empty.  Add some positions?</h3>
+			<a href="#" th:href="@{/addPosition.html(portfolioId=${selectedPortfolio.portfolioId})}">Add New Position</a><br /><br />
+		</div>
+		<div th:unless="${noPortfolios} or ${noPositions}">
+			<br />
+			<span class="bodyHeading">Portfolio Positions</span><br />
+			<span th:text="'(Current Portfolio:  ' + ${selectedPortfolio.portfolioName} + ')'">Current Portfolio Name</span><br />
+			<a href="#" th:href="@{/addPosition.html(portfolioId=${selectedPortfolio.portfolioId})}">Add New Position</a><br /><br />
+			
+			<br />
+			<table>
+				<tr>
+					<th width="60px"></th>
+					<th width="170px">Company</th>
+					<th colspan="3" align="center">Purchase Data</th>
+					<th width="80px">Stop-Loss</th>
+					<th width="100px">Req'd CAGR</th>
+					<th width="100px">CAGR Grace</th>
+					<th width="120px"></th>
+				</tr>
+				<tr>
+					<th>Ticker</th>
+					<th>Name</th>
+					<th width="80px">Date</th>
+					<th width="50px">Qty</th>
+					<th width="50px">Price</th>
+					<th>Pct</th>
+					<th>Pct</th>
+					<th>Period</th>
+					<th>Action</th>
+				</tr>
+				<tr th:each="position : ${allPositions}">
+					<td align="center" th:text="${position.ticker}">Ticker</td>
+					<td align="center" th:text="${position.companyName}">Company Name</td>
+					<td align="center" th:text="${position.purchaseDate}">Purchase Date</td>
+					<td align="center" th:text="${position.purchaseQty}">Quantity</td>
+					<td align="center" th:text="${position.purchasePrice}">Price</td>
+					<td align="center" th:text="${position.stopLossPct}">Stop-Loss Pct</td>
+					<td align="center" th:text="${position.cagrPct}">CAGR Pct</td>
+					<td align="center" th:text="${position.cagrGraceDays}">CAGR Grace Days</td>
+					<td align="center">
+						<a href="#" th:href="@{/editPosition.html(positionId=${position.positionId})}">Edit</a>
+						&nbsp;&nbsp;&nbsp;
+						<a href="#" th:href="@{/deletePosition.html(positionId=${position.positionId})}">Delete</a>
+					</td>
+				</tr>
+			</table>
+		</div> 
+		<div id="footer" th:include="fragments :: footer"></div>
+	</body>
+</html>

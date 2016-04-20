@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>EWIC Portfolio Monitor</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" media="all" href="../../resources/styles/main.css" th:href="@{resources/styles/main.css}" />
+		<!-- Start css3menu.com HEAD section -->
+		<link rel="stylesheet" href="/resources/styles/style.css" th:href="@{resources/styles/style.css}" type="text/css" />
+		<style type="text/css">._css3m{display:none}</style>
+		<!-- End css3menu.com HEAD section -->
+	</head>
+	<body>
+		<div id="header" th:include="fragments :: header"></div>
+		<div id="toolbar" th:include="fragments :: menubar"></div>
+		<div id="menu" th:include="fragments :: leftsidebar"></div>
+		<div>
+			<br />
+			<span class="bodyHeading">Sell Points</span>
+			<p>
+				This application provides user interfaces for maintaining the definition of club portfolio positions.  
+				The following information is collected for each position:
+			</p>
+				<div class="bodyBullets">
+					<ul>
+						<li>Ticker Symbol</li>
+						<li>Company Name</li>
+						<li>Purchase Date (YYYY-MM-DD)</li>
+						<li>Shares Purchased</li>
+						<li>Purchase Price ($/sh.)</li>
+						<li>Stop-Loss (%)</li>
+						<li>CAGR Required (%)</li>
+						<li>CAGR Grace Period (Days)</li>
+					</ul>
+				</div>
+			<p>
+				The meaning of most of these data elements is obvious.  Stop-Loss is the amount of loss that will 
+				be tolerated for a position and forms the beginning of the sell point criteria.  It is expressed
+				as a percentage, so if a 15.0% stop-loss is to be set for a position, the value entered would be 
+				"15.0".  Similarly, CAGR Required is the expected return in the form of stock price appreciation that
+				the club expects for its investments.  This value is also expressed as a percentage (same format as 
+				that for Stop-Loss) and is typically set at 15%.  This amount can be adjusted downward if a consistent 
+				dividend is expected.  For example, if a stock has a consistent history of paying a 2% annual dividend, 
+				then it would be appropriate to lower the CAGR Required to 13% to reflect a combined 15% return.  CAGR 
+				Grace	Period represents the number of days from the purchase date that the club is willing to wait 
+				for the position's share price to achieve the CAGR Required.
+			</p>
+			<p>
+				The "Sell Point" data series represented on a monitoring chart is computed using the position data 
+				presented above and some additional rules.  These rules are outlined below:
+			</p>
+			<div class="bodyBullets">
+				<ul>
+					<li>the initial sell point is set by the Stop-Loss percentage applied to the purchase price;</li>
+					<li>the Sell Point increases if the stock price less the Stop-Loss percentage is above the 
+					most recent Sell Point and maintains the Stop-Loss gap between the two data series;</li>
+					<li>if the Sell Point rises above the CAGR Required data series, it never falls below it;</li>
+					<li>if the stock price does not achieve the CAGR Required price within the CAGR Grace Period, 
+					the Sell Point becomes the CAGR Required price resulting in a "sell" indication; and</li>
+					<li>the Sell Point never goes down.</li>
+				</ul>
+			</div>
+			
+			Anytime the stock price falls to the most recent Sell Point, the position should be sold.  <strong>No exceptions</strong>.
+		</div>
+		<div id="footer" th:include="fragments :: footer"></div>
+	</body>
+</html>

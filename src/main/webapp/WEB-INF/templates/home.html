@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>EWIC Portfolio Monitor</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" media="all" href="../../resources/styles/main.css" th:href="@{resources/styles/main.css}" />
+		<!-- Start css3menu.com HEAD section -->
+		<link rel="stylesheet" href="/resources/styles/style.css" th:href="@{resources/styles/style.css}" type="text/css" />
+		<style type="text/css">._css3m{display:none}</style>
+		<!-- End css3menu.com HEAD section -->
+	</head>
+	<body>
+		<div id="header" th:include="fragments :: header"></div>
+		<div id="toolbar" th:include="fragments :: menubar"></div>
+		<div id="menu" th:include="fragments :: leftsidebar"></div>
+		<div>
+			<br />
+			<span class="bodyHeading">Welcome</span>
+			<p>
+				<span class="bodyText">
+					This web site provides functionality to help the Eagle's Wings Investment Club (EWIC) develop and 
+					refine criteria for disciplined selling of positions, and to monitor positions using those criteria
+					with as little effort as possible.  Club experience has demonstrated that a disciplined, fundamentals-based
+					approach to stock selection and purchase consistently provides a stream of good portfolio options.  
+					Club experience has also shown that trying to make timely decisions around the sale of deteriorating 
+					portfolio positions rarely can be done in the context of analyzing changes in underlying company 
+					fundamentals at	monthly club meetings.
+				</span>
+			</p>
+			<p>
+				<span class="bodyText">
+					Selling is a much more emotional process than buying, and it often requires more responsive decision
+					making than monthly club meetings provide for.  The combination of these two realities has resulted in 
+					punishing losses for the EWIC portfolio during periods of significant market and economic downturn.  
+					Occasional losses are a fact-of-life for investors.  Limiting those losses to manageable, minor amounts 
+					is an important distinction between skilled and novice investors.  Hopefully this tool will help our 
+					club to avoid large losses in the future.
+				</span>
+			</p>
+		</div>
+		<div id="footer" th:include="fragments :: footer"></div>
+	</body>
+</html>

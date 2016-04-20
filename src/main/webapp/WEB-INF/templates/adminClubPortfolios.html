@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>EWIC Portfolio Monitor</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" media="all" href="../../resources/styles/main.css" th:href="@{resources/styles/main.css}" />
+		<!-- Start css3menu.com HEAD section -->
+		<link rel="stylesheet" href="/resources/styles/style.css" th:href="@{resources/styles/style.css}" type="text/css" />
+		<style type="text/css">._css3m{display:none}</style>
+		<!-- End css3menu.com HEAD section -->
+	</head>
+	<body>
+		<div id="header" th:include="fragments :: header"></div>
+		<div id="toolbar" th:include="fragments :: menubar"></div>
+		<div id="menu" th:include="fragments :: clubportfoliomenu"></div>
+		<br />
+		<span class="bodyHeading">Club Portfolio Administration</span><br />
+		<span th:text="'(Current Club:  ' + ${club.clubName} + ')'">Current Club Name</span><br /><br />
+		
+		<a href="#" th:href="@{/addClubPortfolio(clubId=${club.clubId})}">Add Portfolio</a>
+		
+		<div th:unless="${#lists.isEmpty(clubPortfolioList)}">
+			<h3>Club Portfolios</h3>
+			<table>
+				<tr>
+					<th width="200px">Name</th>
+					<th width="200px">Description</th>
+					<th width="200px">Notes</th>
+					<th width="150px">Actions</th>
+				</tr>
+				<tr th:each="cpl : ${clubPortfolioList}">
+					<td align="center" th:text="${{cpl.portfolioName}}">User Name</td>
+					<td align="center" th:text="${{cpl.description}}">Active?</td>
+					<td align="center" th:text="${{cpl.notes}}">Last Name</td>
+					<td align="center">
+						<a href="#" th:href="@{/editClubPortfolio(portfolioId=${cpl.portfolioId})}">Edit</a>
+						&nbsp;&nbsp;&nbsp;
+						<a href="#" th:href="@{/deleteClubPortfolio(portfolioId=${cpl.portfolioId})}">Delete</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>

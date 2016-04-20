@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>EWIC Portfolio Monitor</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" media="all" href="../../resources/styles/main.css" th:href="@{resources/styles/main.css}" />
+		<!-- Start css3menu.com HEAD section -->
+		<link rel="stylesheet" href="/resources/styles/style.css" th:href="@{resources/styles/style.css}" type="text/css" />
+		<style type="text/css">._css3m{display:none}</style>
+		<!-- End css3menu.com HEAD section -->
+	</head>
+	<body>
+		<div id="header" th:include="fragments :: header"></div>
+		<div id="toolbar" th:include="fragments :: menubar"></div>
+		<div id="menu" th:include="fragments :: maintainportfoliomenu"></div>
+		<div>
+			<br />
+			<span class="bodyHeading">Add Portfolio Position</span><br /><br />
+			<span th:text="'(Current Portfolio:  ' + ${selectedPortfolio.portfolioName}">Current Portfolio Name</span><br />
+			<form action="#" th:action="@{/addPosition.html}" th:object="${position}" method="post">
+				<input type="hidden" th:field="*{positionId}" />
+				<input type="hidden" th:field="*{portfolioId}" />
+				<table>
+					<tr>
+						<td>Ticker</td>
+						<td><input type="text" th:field="*{ticker}" /></td>
+					</tr>
+					<tr>
+						<td>Company Name</td>
+						<td><input type="text" th:field="*{companyName}" /></td>
+					</tr>
+					  
+					<tr>
+						<td>Purchase Date (YYYY-MM-DD)</td>
+						<td><input type="text" th:field="*{purchaseDateStr}" /></td>
+					</tr>
+					
+					<tr>
+						<td>Shares Purchased</td>
+						<td><input type="text" th:field="*{purchaseQty}" /></td>
+					</tr>
+					<tr>
+						<td>Purchase Price</td>
+						<td><input type="text" th:field="*{purchasePrice}" /></td>
+					</tr>
+					<tr>
+						<td>Stop-Loss Pct. (%)</td>
+						<td><input type="text" th:field="*{stopLossPct}" /></td>
+					</tr>
+					<tr>
+						<td>Required CAGR (%)</td>
+						<td><input type="text" th:field="*{cagrPct}" /></td>
+					</tr>
+					<tr>
+						<td>Grace Days for CAGR</td>
+						<td><input type="text" th:field="*{cagrGraceDays}" /></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center"><input type="submit" value="Add Position" /></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div id="footer" th:include="fragments :: footer"></div>
+	</body>
+</html>

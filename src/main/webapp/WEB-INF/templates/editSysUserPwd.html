@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>EWIC Portfolio Monitor</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" media="all" href="../../resources/styles/main.css" th:href="@{resources/styles/main.css}" />
+		<!-- Start css3menu.com HEAD section -->
+		<link rel="stylesheet" href="/resources/styles/style.css" th:href="@{resources/styles/style.css}" type="text/css" />
+		<style type="text/css">._css3m{display:none}</style>
+		<!-- End css3menu.com HEAD section -->
+	</head>
+	<body>
+		<div id="header" th:include="fragments :: header"></div>
+		<div id="toolbar" th:include="fragments :: menubar"></div>
+		<div id="menu" th:include="fragments :: sysuseradminmenu"></div>
+		<div>
+			<br />
+			<span class="bodyHeading">New User Password</span><br /><br />
+			Enter a new password for username: <strong><span th:text="${sysUser.username}">Username</span></strong><br />
+			<form action="#" th:action="@{/editSysUserPwd.html}" th:object="${sysUser}" method="post">
+				<input type="hidden" name="sysUserId" th:field="*{sysUserId}" />
+				<table>
+					<tr>
+						<td>Password</td>
+						<td><input type="password" th:field="*{password}" /></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center"><input type="submit" value="Update" /></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div id="footer" th:include="fragments :: footer"></div>
+	</body>
+</html>

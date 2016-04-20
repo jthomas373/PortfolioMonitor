@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>EWIC Portfolio Monitor</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" media="all" href="../../resources/styles/main.css" th:href="@{resources/styles/main.css}" />
+		<!-- Start css3menu.com HEAD section -->
+		<link rel="stylesheet" href="/resources/styles/style.css" th:href="@{resources/styles/style.css}" type="text/css" />
+		<style type="text/css">._css3m{display:none}</style>
+		<!-- End css3menu.com HEAD section -->
+	</head>
+	<body>
+		<div id="header" th:include="fragments :: header"></div>
+		<div id="toolbar" th:include="fragments :: menubar"></div>
+		<div id="menu" th:include="fragments :: portfoliomenu"></div>
+		 
+		<h3 th:if="${positionId} == null" style="color: red">
+			There are no portfolio positions for you to monitor.  Care to create a personal portfolio?
+			Look under the "Maintain Portfolio" menu for the "Add Pers. Portfolio" link.
+		</h3>
+		<div th:unless="${positionId} == null">
+			<br />
+			<span class="bodyHeading">Monitor Portfolio</span>
+			<br />
+			<h3 style="padding-left: 230px" th:text="'Recent Data - &nbsp;&nbsp;&nbsp;Date: ' + ${mostRecentDateString} + '  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Closing Price: ' + ${mostRecentDay.close}">Recent Data</h3>
+			<iframe src="/PortfolioMonitor/monitorPortfolioGraph.html" th:src="@{/monitorPortfolioGraph.html(positionId=${positionId})}" frameBorder="0" width="850" height="650" seamless="seamless"></iframe>
+		</div> 
+		
+		<div id="footer" th:include="fragments :: footer"></div>
+	</body>
+</html>

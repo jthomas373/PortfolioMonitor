@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>EWIC Portfolio Monitor</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" media="all" href="../../resources/styles/main.css" th:href="@{resources/styles/main.css}" />
+		<!-- Start css3menu.com HEAD section -->
+		<link rel="stylesheet" href="/resources/styles/style.css" th:href="@{resources/styles/style.css}" type="text/css" />
+		<style type="text/css">._css3m{display:none}</style>
+		<!-- End css3menu.com HEAD section -->
+	</head>
+	<body>
+		<div id="header" th:include="fragments :: header"></div>
+		<div id="toolbar" th:include="fragments :: menubar"></div>
+		<div id="menu" th:include="fragments :: clubportfoliomenu"></div>
+		<div>
+			<br />
+			<span class="bodyHeading">Edit Club Portfolio</span><br />
+			<span th:text="'(Current Club:  ' + ${club.clubName}+')'">Current Club Name</span><br /><br />
+			<form action="#" th:action="@{/editClubPortfolio.html}" th:object="${portfolio}" method="post">
+				<input type="hidden" th:field="*{portfolioId}" />
+				<input type="hidden" th:field="*{clubId}" />
+				<table>
+					<tr>
+						<td>Portfolio Name</td>
+						<td><input type="text" th:field="*{portfolioName}" size="50" /></td>
+					</tr>
+					<tr>
+						<td>Description</td>
+						<td><input type="text" th:field="*{description}" size="50" /></td>
+					</tr>
+					<tr>
+						<td>Notes</td>
+						<td><input type="text" th:field="*{notes}" size="50" /></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center"><input type="submit" value="Update Portfolio" /></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div id="footer" th:include="fragments :: footer"></div>
+	</body>
+</html>

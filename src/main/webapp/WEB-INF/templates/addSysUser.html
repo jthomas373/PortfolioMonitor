@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>EWIC Portfolio Monitor</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" media="all" href="../../resources/styles/main.css" th:href="@{resources/styles/main.css}" />
+		<!-- Start css3menu.com HEAD section -->
+		<link rel="stylesheet" href="/resources/styles/style.css" th:href="@{resources/styles/style.css}" type="text/css" />
+		<style type="text/css">._css3m{display:none}</style>
+		<!-- End css3menu.com HEAD section -->
+	</head>
+	<body>
+		<div id="header" th:include="fragments :: header"></div>
+		<div id="toolbar" th:include="fragments :: menubar"></div>
+		<div id="menu" th:include="fragments :: sysuseradminmenu"></div>
+		<div>
+			<br />
+			<span class="bodyHeading">Add User</span><br /><br />
+			<form action="#" th:action="@{/addSysUser.html}" th:object="${sysUser}" method="post">
+				<input type="hidden" name="sysUserId" />
+				<table>
+					<tr>
+						<td>Username</td>
+						<td><input type="text" th:field="*{username}" /></td>
+					</tr>
+					<tr>
+						<td>Password</td>
+						<td><input type="password" th:field="*{password}" /></td>
+					</tr>
+					<tr>
+						<td>Active</td>
+						<td><input type="checkbox" th:field="*{active}" /></td>
+					</tr>
+					<tr>
+						<td>Last Name</td>
+						<td><input type="text" th:field="*{lastName}" /></td>
+					</tr>
+					<tr>
+						<td>First Name</td>
+						<td><input type="text" th:field="*{firstName}" /></td>
+					</tr>
+					<tr>
+						<td>Middle Initial</td>
+						<td><input type="text" th:field="*{middleInit}" /></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center"><input type="submit" value="Add User" /></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div id="footer" th:include="fragments :: footer"></div>
+	</body>
+</html>
