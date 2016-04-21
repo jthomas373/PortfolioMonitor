@@ -1,6 +1,6 @@
 package com.ccllc.PortfolioMonitor.services;
 
-import java.text.SimpleDateFormat;
+//import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.context.ApplicationContext;
@@ -15,7 +15,7 @@ public class MonitorServiceTest {
 
 	public static void main(String[] args) {
 		
-		SimpleDateFormat yahooDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		//SimpleDateFormat yahooDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		
 		try {
 			/*
@@ -72,19 +72,23 @@ public class MonitorServiceTest {
 		
 	}
 	
+	@SuppressWarnings("unused")
 	private static void testGetDayData (String ticker, Date date) {
 		//Date today = new Date();
 		monitorService.getDayData(ticker, date);
 	}
 
+	@SuppressWarnings("unused")
 	private static void testGetDailyData (String ticker, Date startDate, Date endDate) {
 		monitorService.getDailyData(ticker, startDate, endDate);
 	}
 
+	@SuppressWarnings("unused")
 	private static void testGetWeeklyData (String ticker, Date startDate, Date endDate) {
 		monitorService.getWeeklyData(ticker, startDate, endDate);
 	}
 
+	@SuppressWarnings("unused")
 	private static void testGetMonthlyData (String ticker, Date startDate, Date endDate) {
 		monitorService.getMonthlyData(ticker, startDate, endDate);
 	}

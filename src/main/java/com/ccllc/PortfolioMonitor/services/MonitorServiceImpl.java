@@ -77,13 +77,14 @@ public class MonitorServiceImpl implements MonitorService {
 		StringBuffer strBuffer = new StringBuffer();
 		int lineNumber = 0;
 		char[] buffer = new char[1024];
-		int numRead;
+		//int numRead;
 		//long numWritten = 0;
 		try {
 			URL url = new URL(address);
 			conn = url.openConnection();
 			charIn = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			while ((numRead = charIn.read(buffer)) != -1) {
+			//while ((numRead = charIn.read(buffer)) != -1) {
+			while ((charIn.read(buffer)) != -1) {
 				for(char c : buffer) {
 					if(c != '\r' && c != '\n') {  // character is not carriage return or line feed
 						strBuffer.append(c);
@@ -151,13 +152,14 @@ public class MonitorServiceImpl implements MonitorService {
 		StringBuffer strBuffer = new StringBuffer();
 		int lineNumber = 0;
 		char[] buffer = new char[1024];
-		int numRead;
+		//int numRead;
 		//long numWritten = 0;
 		try {
 			URL url = new URL(address);
 			conn = url.openConnection();
 			charIn = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			while ((numRead = charIn.read(buffer)) != -1) {
+			//while ((numRead = charIn.read(buffer)) != -1) {
+			while ((charIn.read(buffer)) != -1) {
 				for(char c : buffer) {
 					if(c != '\r' && c != '\n') {  // character is not carriage return or line feed
 						strBuffer.append(c);
@@ -228,14 +230,15 @@ public class MonitorServiceImpl implements MonitorService {
 		StringBuffer strBuffer = new StringBuffer();
 		int lineNumber = 0;
 		char[] buffer = new char[1024];
-		int numRead;
+		//int numRead;
 		//long numWritten = 0;
 		String csvData = "";
 		try {
 			URL url = new URL(address);
 			conn = url.openConnection();
 			charIn = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			while ((numRead = charIn.read(buffer)) != -1) {
+			//while ((numRead = charIn.read(buffer)) != -1) {
+			while ((charIn.read(buffer)) != -1) {
 				for(char c : buffer) {
 					if(c != '\r' && c != '\n') {  // character is not carriage return or line feed
 						strBuffer.append(c);
@@ -294,9 +297,10 @@ public class MonitorServiceImpl implements MonitorService {
 									}
 									// Adjusted Close
 									String adjCloseString = st.nextToken();
-									if(adjCloseString.length() == 0 || adjCloseString.length() > 10 || !adjCloseString.contains(".")) {
+									//if(adjCloseString.length() == 0 || adjCloseString.length() > 10 || !adjCloseString.contains(".")) {
+									if(adjCloseString.length() == 0 || adjCloseString.length() > 11) {
 										validData = false;
-										logger.error("Invalid Adjusted Close price: " + adjCloseString + ".  Adjusted Close price string length must not be 0 or greater than 10, and must contain a decimal point.");
+										logger.error("Invalid Adjusted Close price: " + adjCloseString + ".  Adjusted Close price string length must not be 0 or greater than 11.");
 										logger.info("adjCloseString.length() = " + adjCloseString.length());
 										logger.info("adjCloseString = " + adjCloseString);
 									}
@@ -369,13 +373,14 @@ public class MonitorServiceImpl implements MonitorService {
 		StringBuffer strBuffer = new StringBuffer();
 		int lineNumber = 0;
 		char[] buffer = new char[1024];
-		int numRead;
+		//int numRead;
 		//long numWritten = 0;
 		try {
 			URL url = new URL(address);
 			conn = url.openConnection();
 			charIn = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			while ((numRead = charIn.read(buffer)) != -1) {
+			//while ((numRead = charIn.read(buffer)) != -1) {
+			while ((charIn.read(buffer)) != -1) {
 				for(char c : buffer) {
 					if(c != '\r' && c != '\n') {  // character is not carriage return or line feed
 						strBuffer.append(c);

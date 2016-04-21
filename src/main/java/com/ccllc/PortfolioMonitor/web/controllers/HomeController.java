@@ -1010,7 +1010,7 @@ public class HomeController {
 		List<Portfolio> allPortfolios = null;
 		Portfolio selectedPortfolio = null;
 		List<PortfolioPosition> allPositions = null;
-		PortfolioPosition selectedPosition = null;
+		//PortfolioPosition selectedPosition = null;
 
 		HttpSession session = request.getSession();
 		Long loggedInSysUserId = null;
@@ -1048,7 +1048,7 @@ public class HomeController {
 					request.setAttribute("positionId", selectedPositionId);
 				}
 			}
-			if(selectedPositionId != null) 	selectedPosition = monitorService.getPortfolioPositionById(Long.valueOf(selectedPositionId));
+			//if(selectedPositionId != null) 	selectedPosition = monitorService.getPortfolioPositionById(Long.valueOf(selectedPositionId));
 			if(selectedPortfolioId != null) selectedPortfolio = monitorService.getPortfolioById(Long.valueOf(selectedPortfolioId));
 		}
 		
